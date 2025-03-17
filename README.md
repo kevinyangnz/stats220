@@ -10,3 +10,13 @@ A little about me:
   
 A meme that captures how I currently feel about my university studies is 
 (https://tenor.com/tGe8.gif)
+
+
+## Learning how to use Markdown
+
+1. **What is Markdown:** <em>https://www.markdownguide.org/getting-started/</em>
+2. **Markdown basic syntax:** <em>https://www.markdownguide.org/basic-syntax/</em>
+
+https://tenor.com/view/kermit-freaking-out-statistics-gif-11534183
+
+
