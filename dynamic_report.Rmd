@@ -1,0 +1,105 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+# Set code to show
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+# Load tidyverse library
+library(tidyverse)
+
+```
+
+```{css}
+body {
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+
+
+```
+
+## Daily Walk Observations
+
+```{r}
+# Import data into R
+csv_file = 'daily_walk_observations.csv'
+logged_data <- read_csv(csv_file)
+
+```
+
+```{r}
+# Rename variables
+latest_data <- logged_data %>%
+  rename(start_time = 1,
+         vehicles_seen = 2,
+         pedestrians_seen = 3,
+         more_dogs_or_cats = 4,
+         buses = 5)
+
+# Rename the N/A values in the buses column
+rename_na <- ifelse(is.na(latest_data$buses), "No buses", latest_data$buses)
+latest_data$buses <- rename_na
+```
+
+### Number of dogs or cats
+
+```{r}
+## Bar graph of more dogs or cats 
+latest_data %>%
+  ggplot() + 
+    geom_bar(aes(x = more_dogs_or_cats),
+             fill = "#E63946") +
+  labs(title = "Are you more likely to see dogs or cats?",
+       subtitle = "Depicting whether you're more likely to see cats or dogs
+during a 15 minute walk",
+       caption = "Source: Daily Walk Observational Survey",
+       x = "More Dogs or Cats",
+       y = "Number of dogs or cats") +
+  scale_y_continuous(breaks = seq(0, 20, by = 2))
+```
+
+### Number of buses
+
+```{r}
+latest_data %>%
+  ggplot() +
+    geom_bar(aes(x = buses),
+             fill = "#000080") +
+  labs(title = "Which buses are you likely to see?",
+       subtitle = "Portraying which buses you're likely to see during a
+15 minute walk",
+       caption = "Source: Daily Walk Observational Survey",
+       x = "Buses",
+       y = "Number of buses") +
+  scale_y_continuous(breaks = seq(0, 20, by = 2))
+```
+
+```{r}
+## Mean vehicles seen 
+mean_vehicles_seen <- mean(latest_data$vehicles_seen)
+
+## Max pedestrians seen
+max_pedestrians_seen <- max(latest_data$pedestrians_seen)
+
+```
+
+### Average number of vehicles seen
+
+The average number of driven vehicles seen in 15 minute intervals is `r round(mean_vehicles_seen, 1)`.
+
+### Highest number of pedestrians seen
+
+The most pedestrians seen in a 15 minute interval is `r max_pedestrians_seen`.
