@@ -35,7 +35,7 @@ h3 {
 
 ```{r}
 # Import data into R
-csv_file = 'daily_walk_observations.csv'
+csv_file = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2dzFkVy0-S_aXz4lefiQtewqEEaZt05VJOQpRfGFttLSBMl0YIj4QbDkqptwcsHnU6XWW4ged0F8_/pub?output=csv'
 logged_data <- read_csv(csv_file)
 
 ```
@@ -43,11 +43,11 @@ logged_data <- read_csv(csv_file)
 ```{r}
 # Rename variables
 latest_data <- logged_data %>%
-  rename(start_time = 1,
-         vehicles_seen = 2,
-         pedestrians_seen = 3,
-         more_dogs_or_cats = 4,
-         buses = 5)
+  rename(start_time = 2,
+         vehicles_seen = 3,
+         pedestrians_seen = 4,
+         more_dogs_or_cats = 5,
+         buses = 6)
 
 # Rename the N/A values in the buses column
 rename_na <- ifelse(is.na(latest_data$buses), "No buses", latest_data$buses)
